@@ -1,0 +1,6 @@
+name = "ethos-bradbury-rpc-proxy"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Free-tier Worker. Receives ~0 traffic (just your dapp's wallet writes).
+# MetaMask will be configured to use https://ethos-bradbury-rpc-proxy.<your-subdomain>.workers.dev
