@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Seal } from "./Seal.jsx";
 import { Docket } from "./components/Docket.jsx";
 import { Console } from "./components/Console.jsx";
+import { NetworkSection } from "./components/Network.jsx";
 import { useWallet } from "./useWallet.js";
 import { read } from "./genlayer.js";
 import {
@@ -118,6 +119,7 @@ export default function App() {
             <a href="#how">How it works</a>
             <a href="#docket">Live docket</a>
             <a href="#console">Console</a>
+            <a href="#network">Network</a>
             <a href="#build">Build</a>
           </nav>
           <div className="nav-actions">
@@ -292,6 +294,9 @@ export default function App() {
           </p>
         </div>
       </section>
+
+      {/* NETWORK & RPC PRIMER */}
+      <NetworkSection />
 
       {/* BUILD / DEVELOPER */}
       <section className="section" id="build">

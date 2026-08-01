@@ -22,7 +22,7 @@ export function SeverityMeter({ severity }) {
 // Live transaction lifecycle: pending spinner, phase text, clickable explorer link.
 export function TxStatus({ tx }) {
   if (!tx) return null;
-  const { phase, label, hash, error, verdict } = tx;
+  const { phase, label, hash, error, errorInfo, verdict } = tx;
   const cls = error ? "is-err" : phase === "accepted" ? "is-ok" : "";
   const pending = phase === "submitting" || phase === "pending";
   return (
@@ -40,7 +40,15 @@ export function TxStatus({ tx }) {
             </span>
           ) : null}
         </div>
-        {error ? <div className="tx-sub">{String(error).slice(0, 200)}</div> : null}
+        {error ? (
+          <div className="tx-sub">
+            {String(error).slice(0, 200)}
+            <div className="tx-explain">
+              <div className="tx-explain-title">{errorInfo?.title || "The transaction did not go through"}</div>
+              {errorInfo?.body ? <div className="tx-explain-body">{errorInfo.body}</div> : null}
+            </div>
+          </div>
+        ) : null}
         {hash ? (
           <div className="tx-sub">
             <a href={txUrl(hash)} target="_blank" rel="noreferrer">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { read, write, ensureNetwork } from "../genlayer.js";
+import { explainError } from "../errors.js";
 import { TxStatus } from "./ui.jsx";
 
 const TABS = [
@@ -92,7 +93,11 @@ export function Console({ wallet }) {
         await write(wallet.client, "claim", [], { onPhase });
       }
     } catch (e) {
-      setTx((prev) => ({ ...(prev || {}), error: e?.shortMessage || e?.message || String(e) }));
+      setTx((prev) => ({
+        ...(prev || {}),
+        error: e?.shortMessage || e?.message || String(e),
+        errorInfo: explainError(e),
+      }));
     } finally {
       setBusy(false);
     }

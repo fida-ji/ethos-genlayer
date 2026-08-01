@@ -350,3 +350,61 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.12;
 .divider-note { display:flex; align-items:center; gap:14px; color: var(--paper-faint); font-family: var(--mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; margin: 8px 0 0; }
 .tag-list { display:flex; gap:8px; flex-wrap:wrap; margin-top: 14px; }
 .tag { font-family: var(--mono); font-size:11.5px; color: var(--paper-dim); border:1px solid var(--hairline-strong); border-radius: var(--radius); padding: 4px 9px; }
+
+/* ---------------------------------------------------- network / rpc primer */
+.net-grid {
+  display: grid; grid-template-columns: 1.15fr 0.85fr;
+  gap: 1px; background: var(--hairline);
+  border: 1px solid var(--hairline); border-radius: var(--radius); overflow: hidden;
+}
+.net-cell { background: var(--ink-850); padding: clamp(20px, 2.6vw, 34px); }
+.net-intro p { color: var(--paper-dim); font-size: 14.5px; line-height: 1.65; margin: 0 0 14px; }
+.net-intro strong { color: var(--paper); font-weight: 600; }
+.net-intro code { font-size: 13px; color: var(--brass); }
+
+.cfg-block {
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius);
+  background: var(--ink-900); padding: 16px; margin-top: 22px;
+}
+.cfg-row {
+  display: grid; grid-template-columns: 132px 64px 1fr;
+  align-items: center; gap: 12px; padding: 9px 0;
+  border-top: 1px dashed var(--hairline);
+}
+.cfg-row:first-of-type { border-top: none; }
+.cfg-row .k {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--paper-faint);
+}
+.cfg-row .v {
+  font-size: 12.5px; color: var(--paper); cursor: pointer;
+  word-break: break-all;
+}
+.cfg-row .v:hover { color: var(--brass); }
+.btn-copy {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--brass); border-color: var(--hairline-strong); padding: 4px 10px;
+}
+.btn-copy:hover { color: var(--ink-900); background: var(--brass); border-color: var(--brass); }
+.cfg-actions { display: flex; gap: 10px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
+
+.fail-list { display: grid; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: var(--radius); overflow: hidden; }
+.fail-row {
+  background: var(--ink-900); padding: 15px 16px;
+  display: grid; grid-template-columns: auto 1fr; gap: 12px;
+}
+.fail-row .chip { align-self: start; margin-top: 2px; }
+.fail-title { font-family: var(--sans); font-weight: 600; color: var(--paper); font-size: 14px; }
+.fail-body { color: var(--paper-dim); font-size: 13px; line-height: 1.55; margin-top: 4px; }
+.fail-struck .chip { color: var(--struck-bright); border-color: color-mix(in srgb, var(--struck) 55%, transparent); background: color-mix(in srgb, var(--struck) 12%, transparent); }
+.fail-struck .chip::before { background: var(--struck-bright); }
+
+/* tx explanation shown inside the console on failures */
+.tx-explain { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--hairline-strong); }
+.tx-explain-title { font-family: var(--sans); font-weight: 600; color: var(--struck-bright); font-size: 13.5px; }
+.tx-explain-body { color: var(--paper-dim); font-size: 12.5px; line-height: 1.55; margin-top: 3px; font-family: var(--sans); }
+
+@media (max-width: 900px) {
+  .net-grid { grid-template-columns: 1fr; }
+  .cfg-row { grid-template-columns: 100px 60px 1fr; gap: 8px; }
+}
