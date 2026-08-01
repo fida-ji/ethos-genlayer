@@ -286,7 +286,9 @@ export default function App() {
             <a href={FAUCET} target="_blank" rel="noreferrer">
               Bradbury faucet
             </a>
-            .
+            . If you previously added Bradbury to your wallet with a different
+            RPC, remove that network entry and reconnect so the correct RPC is
+            used; otherwise writes may fail.
           </p>
         </div>
       </section>

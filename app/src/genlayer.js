@@ -4,7 +4,7 @@
 import { createClient } from "genlayer-js";
 import { testnetBradbury } from "genlayer-js/chains";
 import { TransactionStatus } from "genlayer-js/types";
-import { CONTRACT_ADDRESS } from "./config.js";
+import { CONTRACT_ADDRESS, CHAIN_ID_HEX, CHAIN_PARAMS } from "./config.js";
 
 let readClient = null;
 function getReadClient() {
@@ -39,13 +39,37 @@ export async function read(functionName, args = []) {
 }
 
 // Build a write client bound to the wallet. `provider` is window.ethereum.
+// The SDK signs via the injected provider automatically when an address is set;
+// we do NOT call client.connect() because that path requires the GenLayer Snap
+// (MetaMask Flask). Switching is done with plain EIP-1193 calls instead.
 export function makeWriteClient(address, provider) {
   return createClient({ chain: testnetBradbury, account: address, provider });
 }
 
-// Ensure the wallet is on Bradbury (adds the chain if missing). No Snaps.
+// Ensure the wallet is on Bradbury using plain EIP-1193 (works on regular
+// MetaMask, no Snap/Flask). Adds the chain (with the id-normalizing proxy as
+// its RPC) if the wallet doesn't know it yet. MetaMask must use the proxy as
+// its Bradbury RPC because the direct Bradbury server rejects the string
+// JSON-RPC ids MetaMask sends.
 export async function ensureNetwork(client) {
-  await client.connect("testnetBradbury");
+  const provider = typeof window !== "undefined" ? window.ethereum : undefined;
+  if (!provider) throw new Error("No Ethereum wallet found");
+  const current = await provider.request({ method: "eth_chainId" }).catch(() => null);
+  if (current === CHAIN_ID_HEX) return;
+  try {
+    await provider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: CHAIN_ID_HEX }],
+    });
+  } catch (err) {
+    const code = err?.code ?? err?.data?.originalError?.code;
+    if (code === 4902 || /Unrecognized chain|may not be added/i.test(String(err?.message || ""))) {
+      // Chain not known to the wallet: add it with the proxy RPC URL.
+      await provider.request({ method: "wallet_addEthereumChain", params: [CHAIN_PARAMS] });
+    } else {
+      throw err;
+    }
+  }
 }
 
 // Submit a write and drive a status callback through the tx lifecycle.

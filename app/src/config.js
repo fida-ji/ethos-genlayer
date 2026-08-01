@@ -6,7 +6,22 @@ export const CONTRACT_ADDRESS =
   "0x3Be3c65Ef4E1755D878dD48c39D150De34a4335a";
 
 export const CHAIN_ID = 4221;
-export const NETWORK_KEY = "testnetBradbury"; // genlayer-js chain key for connect()
+export const CHAIN_ID_HEX = `0x${CHAIN_ID.toString(16)}`;
+// Bradbury RPC. The Bradbury server rejects string JSON-RPC ids (which MetaMask
+// sends), so browser writes route through an id-normalizing proxy. Reads still
+// use the direct RPC. Override the proxy URL via VITE_BRADBURY_RPC_PROXY.
+export const RPC_DIRECT = "https://rpc-bradbury.genlayer.com";
+export const RPC_PROXY =
+  import.meta.env.VITE_BRADBURY_RPC_PROXY ||
+  "https://ethos-bradbury-rpc-proxy.ethos-genlayer.workers.dev";
+// Chain params MetaMask uses: the proxy URL, so wallet writes succeed.
+export const CHAIN_PARAMS = {
+  chainId: CHAIN_ID_HEX,
+  chainName: "GenLayer Testnet Bradbury",
+  rpcUrls: [RPC_PROXY],
+  nativeCurrency: { name: "GEN", symbol: "GEN", decimals: 18 },
+  blockExplorerUrls: ["https://explorer-bradbury.genlayer.com"],
+};
 export const EXPLORER = "https://explorer-bradbury.genlayer.com";
 export const FAUCET = "https://testnet-faucet.genlayer.foundation";
 
