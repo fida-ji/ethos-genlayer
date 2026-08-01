@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ethos seal">
+  <rect width="64" height="64" rx="6" fill="#0E0F0D"/>
+  <!-- seal ring -->
+  <circle cx="32" cy="32" r="24" fill="none" stroke="#D8A24A" stroke-width="2.5"/>
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#D8A24A" stroke-width="1" opacity="0.5"/>
+  <!-- manifest baseline (the boundary the persona is measured against) -->
+  <line x1="16" y1="38" x2="48" y2="38" stroke="#D8A24A" stroke-width="1.5" opacity="0.85"/>
+  <!-- voice bars: compliant ones sit on the baseline in brass -->
+  <rect x="20" y="30" width="3.2" height="8" fill="#D8A24A"/>
+  <rect x="26" y="26" width="3.2" height="12" fill="#D8A24A"/>
+  <rect x="38" y="28" width="3.2" height="10" fill="#D8A24A"/>
+  <rect x="44" y="32" width="3.2" height="6" fill="#D8A24A"/>
+  <!-- one bar breaks the boundary: the violation, struck in oxblood -->
+  <rect x="32" y="16" width="3.2" height="22" fill="#B23A34"/>
+</svg>
