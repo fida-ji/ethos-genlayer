@@ -1,0 +1,17 @@
+# Netlify deploy config. Repo-root file; the frontend lives in app/.
+# Configure VITE_CONTRACT_ADDRESS as a Site environment variable in the Netlify
+# UI to override the baked-in default. Do NOT put secrets in this file.
+
+[build]
+  base = "app"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Single-page app: serve index.html for any path.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
